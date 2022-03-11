@@ -390,7 +390,7 @@ public class Combiner implements Runnable {
             throw new IllegalArgumentException("非法参数: bit["+ bit +"] level["+ level +"]");
         }
         long increment = (long) Math.pow(factors.length, bit) / factors.length;
-        analysisDictionary(collector, factors, new char[bit], 0, 0, bit, increment, 0, level);
+        analysisDictionary(collector, factors, new char[bit], 0, 0, increment, 0, level);
     }
 
     /**
@@ -400,12 +400,11 @@ public class Combiner implements Runnable {
      * @param payload 字符载体
      * @param payloadIndex 字符载体当前位置索引
      * @param relativePos 上一层起始位置
-     * @param bit 数据位数
      * @param increment 元素增量值
      * @param depth 当前深度
      * @param level 粒度
      */
-    public static void analysisDictionary(AnalysisDictionaryCollector collector, char[] factors, char[] payload, int payloadIndex, long relativePos, int bit, long increment, int depth, int level) {
+    public static void analysisDictionary(AnalysisDictionaryCollector collector, char[] factors, char[] payload, int payloadIndex, long relativePos, long increment, int depth, int level) {
         if (!(depth < level)) {
             return;
         }
@@ -416,7 +415,7 @@ public class Combiner implements Runnable {
             String symbol = new String(payload, 0, payloadIndex);
             collector.collect(symbol, c, depth, pos, relativePos, increment);
             payload[payloadIndex] = c;
-            analysisDictionary(collector, factors, payload, payloadIndex + 1, pos, bit, internalIncrement, depth +1, level);
+            analysisDictionary(collector, factors, payload, payloadIndex + 1, pos, internalIncrement, depth +1, level);
         }
     }
 
