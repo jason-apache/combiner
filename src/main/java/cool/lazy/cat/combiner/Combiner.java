@@ -172,7 +172,8 @@ public class Combiner implements Runnable {
      */
     protected void callWithBatch(final char[] factors, final int minBit, final int maxBit, final int batchSize,
                                  long startBatch, long endBatch, final CombinationCallback callback) throws Exception {
-        this.callWithOffset(factors, minBit, maxBit, batchSize, startBatch * batchSize, endBatch * batchSize + batchSize, callback);
+        long endOffset = endBatch > 0 ? endBatch * batchSize + batchSize : -1;
+        this.callWithOffset(factors, minBit, maxBit, batchSize, startBatch * batchSize, endOffset, callback);
     }
 
     /**
